@@ -5,11 +5,11 @@ const Sequelize = require("sequelize");
 const sequelize = process.env.JAWSDB_URL
   ? new Sequelize(process.env.JAWSDB_URL)
   : new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
-      host: "localhost",
+      host: (process.env.DB_LOCAL_HOST = "127.0.0.1" || "localhost"),
       dialect: "mysql",
-      socketPath: "/tmp/mysql.sock",
       dialectOptions: {
         decimalNumbers: true,
+        socketPath: "/tmp/mysql.sock",
       },
     });
 

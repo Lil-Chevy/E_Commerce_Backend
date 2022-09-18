@@ -2,7 +2,7 @@
 
 ## contributors
 
-    Jack Nowaczewski
+Jack Nowaczewski
 
 ## Github
 
