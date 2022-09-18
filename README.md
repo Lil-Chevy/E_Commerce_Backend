@@ -1,5 +1,13 @@
 # E-commerce Back End Starter Code
 
+![screenshot](./assets/datascreenshot.png)
+
+## How to start the app!
+
+    first run in the terminal: node seeds/index.js
+    then enter into console: npm start
+    then use insomnia to query the database
+
 ## contributors
 
 Jack Nowaczewski
