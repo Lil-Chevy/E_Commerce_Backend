@@ -1,4 +1,4 @@
-function tagSerializerAll(rawtagData) {
+function tagBarAll(rawtagData) {
   const tagsData = rawtagData.map(({ dataValues }) => ({
     ...dataValues,
   }));
@@ -15,7 +15,7 @@ function tagSerializerAll(rawtagData) {
     ),
   }));
 }
-function tagSerializerOne(rawtagData) {
+function tagBarOne(rawtagData) {
   const serializedProducts = rawtagData.products.map(
     ({ id, product_name, price, stock, category_id }) => ({
       id,
@@ -34,4 +34,4 @@ function tagSerializerOne(rawtagData) {
   return returnTag;
 }
 
-module.exports = { tagSerializerAll, tagSerializerOne };
+module.exports = { tagBarAll, tagBarOne };

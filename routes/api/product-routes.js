@@ -1,10 +1,7 @@
 const router = require("express").Router();
 const sequelize = require("sequelize");
 const { Product, Category, Tag, ProductTag } = require("../../models");
-const {
-  productSerializerAll,
-  productSerializerOne,
-} = require("../../utils/productserializer");
+const { productBarAll, productBarOne } = require("../../utils/productBAr");
 
 // The `/api/products` endpoint
 
@@ -25,7 +22,7 @@ router.get("/", (req, res) => {
       },
     ],
   })
-    .then((dbProductData) => res.json(productSerializerAll(dbProductData)))
+    .then((dbProductData) => res.json(productBarAll(dbProductData)))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
@@ -57,7 +54,7 @@ router.get("/:id", (req, res) => {
         res.status(404).json({ message: "No product found with this id" });
         return;
       }
-      return res.json(productSerializerOne(dbProductData));
+      return res.json(productBarOne(dbProductData));
     })
     .catch((err) => {
       console.log(err);

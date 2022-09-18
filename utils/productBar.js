@@ -1,6 +1,6 @@
 const { raw } = require("express");
 
-function productSerializerAll(rawProductData) {
+function productBarAll(rawProductData) {
   const productsData = rawProductData.map(({ dataValues }) => ({
     ...dataValues,
   }));
@@ -10,8 +10,8 @@ function productSerializerAll(rawProductData) {
   }));
 }
 
-function productSerializerOne(rawProductData) {
-  const serializedTags = rawProductData.tags.amp(({ id, tag_name }) => ({
+function productBarOne(rawProductData) {
+  const serializedTags = rawProductData.tags.map(({ id, tag_name }) => ({
     id,
     tag_name,
   }));
@@ -23,7 +23,8 @@ function productSerializerOne(rawProductData) {
     category: rawProductData.category,
     tags: serializedTags,
   };
+
   return returnProduct;
 }
 
-module.exports = { productSerializerAll, productSerializerOne };
+module.exports = { productBarAll, productBarOne };

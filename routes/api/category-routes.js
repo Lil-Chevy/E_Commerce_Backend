@@ -4,10 +4,12 @@ const { Category, Product } = require("../../models");
 // The `/api/categories` endpoint
 
 router.get("/", (req, res) => {
+  // find all categories
+  // be sure to include its associated Products
   Category.findAll({
     include: {
       model: Product,
-      attributes: ["id", "product-name"],
+      attributes: ["id", "product_name"],
       as: "products",
     },
   })
@@ -19,6 +21,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
+  // find one category by its `id` value
+  // be sure to include its associated Products
   Category.findOne({
     where: {
       id: req.params.id,
@@ -31,7 +35,7 @@ router.get("/:id", (req, res) => {
   })
     .then((dbCategoryData) => {
       if (!dbCategoryData) {
-        res.status(404).json({ message: "No Category Try Again" });
+        res.status(404).json({ message: "No category found with this id" });
         return;
       }
       res.json(dbCategoryData);
@@ -43,6 +47,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+  // create a new category
   Category.create({
     category_name: req.body.category_name,
   })
@@ -56,12 +61,13 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
+  // update a category by its `id` value
   Category.update(req.body, {
     where: {
       id: req.params.id,
     },
   })
-    .then((category) => {
+    .then((Category) => {
       return Category.findAll({ where: { id: req.params.id } });
     })
     .then((category) => {
@@ -73,6 +79,7 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
+  // delete a category by its `id` value
   Category.destroy({
     where: {
       id: req.params.id,
@@ -80,7 +87,7 @@ router.delete("/:id", (req, res) => {
   })
     .then((category) => {
       if (!category) {
-        res.status(404).json({ message: "No Category found" });
+        res.status(404).json({ message: "No category with this id found" });
         return;
       }
       res.json(category);

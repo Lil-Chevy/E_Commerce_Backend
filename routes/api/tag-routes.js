@@ -1,30 +1,27 @@
 const router = require("express").Router();
-const { rearg, tap } = require("lodash");
-const sequelize = require("sequelize");
 const { Tag, Product, ProductTag } = require("../../models");
-const {
-  productSerializerAll,
-  productSerializerOne,
-} = require("../../utils/productSerializer");
-
+const { tagBarAll, tagBarOne } = require("../../utils/tagBar");
 // The `/api/tags` endpoint
 
 router.get("/", (req, res) => {
+  // find all tags
+  // be sure to include its associated Product data
   Tag.findAll({
     include: [
       {
         model: Product,
         as: "products",
+        // }
       },
     ],
   })
     .then((tags) => {
       console.log(tags);
-      return res.json(tagSerializerAll(tags));
+      return res.json(tagBarAll(tags));
     })
     .catch((err) => {
       console.log(err);
-      res.json(500).json(err);
+      res.status(500).json(err);
     });
 });
 
@@ -40,10 +37,10 @@ router.get("/:id", (req, res) => {
   })
     .then((tags) => {
       if (!tags) {
-        res.status(404).json({ message: "No Tags Found" });
+        res.status(404).json({ message: "No tags with this id found" });
         return;
       }
-      return res.json(tagSerializerOne(tags));
+      return res.json(tagBarOne(tags));
     })
     .catch((err) => {
       console.log(err);
@@ -63,7 +60,6 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-  // update a tag's name by its `id` value
   Tag.update(req.body, {
     where: {
       id: req.params.id,
@@ -89,7 +85,7 @@ router.delete("/:id", (req, res) => {
   })
     .then((tag) => {
       if (!tag) {
-        res.status(404).json({ message: "no tag found" });
+        res.status(404).json({ message: "No tag with this id found" });
         return;
       }
       res.json(tag);
@@ -99,5 +95,4 @@ router.delete("/:id", (req, res) => {
       res.status(500).json(err);
     });
 });
-
 module.exports = router;
