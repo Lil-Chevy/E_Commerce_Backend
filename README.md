@@ -5,7 +5,7 @@
 ## How to start the app!
 
     first run in the terminal: node seeds/index.js
-    then enter into console: npm start
+    then enter into console: n
     then use insomnia to query the database
 
 ## contributors
